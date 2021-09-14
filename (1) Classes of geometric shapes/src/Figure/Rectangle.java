@@ -1,38 +1,14 @@
 package Figure;
 
-public class Rectangle {
-    private int x, y, x2, y2;
+public class Rectangle extends Figure implements Volumable {
+    public int x, y, x2, y2;
 
-    public int getX() {
-        return x;
+    public double getA() {
+        return Math.abs(x2 - x);
     }
 
-    public int getY() {
-        return y;
-    }
-
-    public int getX2() {
-        return x2;
-    }
-
-    public int getY2() {
-        return y2;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setX2(int x2) {
-        this.x2 = x2;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
+    public double getB() {
+        return Math.abs(y2 - y);
     }
 
     public Rectangle() {
@@ -42,24 +18,36 @@ public class Rectangle {
         y = 10;
     }
 
-    public int S() {
-        return Math.abs((x2 - x) * (y2 - y));
+    public Rectangle(int x, int y, int x2, int y2) {
+        this.x = x;
+        this.y = y;
+        this.x2 = x2;
+        this.y2 = y2;
     }
 
-    public int P() {
-        return Math.abs((x2 - x) * 2) + Math.abs((y2 - y) * 2);
+    public double S() {
+        return getA() * getB();
+    }
+
+    public double P() {
+        return (getA() + getB()) * 2;
     }
 
     public double Diag() {
-        return (Math.sqrt(Math.pow((x2 - x), 2) + Math.pow((y2 - y), 2)));
+        return (Math.sqrt(Math.pow(getA(), 2) + Math.pow(getB(), 2)));
     }
 
     public boolean isSquare() {
-        if (Math.abs(x2 - x) == Math.abs(y2 - y)) return true;
+        if (getA() == getB()) return true;
         else return false;
     }
 
     public String toString() {
         return String.format("this is rect x:%d y:%d x2:%d y2:%d", x, y, x2, y2);
+    }
+
+    @Override
+    public double Volume() {
+        return 0;
     }
 }
