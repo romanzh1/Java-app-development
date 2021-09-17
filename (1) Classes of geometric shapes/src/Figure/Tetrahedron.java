@@ -4,15 +4,15 @@ public class Tetrahedron extends Triangle implements Volumable {
     public int x, y, z, x2, y2, z2, x3, y3, z3, h;
 
     public double getR1() {
-        return Math.sqrt(Math.pow(1/6*(2*getA()*getA()+2*getB()*getB()-getC()*getC()), 2) + Math.pow(getH(), 2));
+        return Math.sqrt(Math.pow(1 / 6 * (2 * getA() * getA() + 2 * getB() * getB() - getC() * getC()), 2) + Math.pow(getH(), 2));
     }
 
     public double getR2() {
-        return Math.sqrt(Math.pow(1/6*(2*getA()*getA()+2*getB()*getB()-getC()*getC()), 2) + Math.pow(getH(), 2));
+        return Math.sqrt(Math.pow(1 / 6 * (2 * getA() * getA() + 2 * getB() * getB() - getC() * getC()), 2) + Math.pow(getH(), 2));
     }
 
     public double getR3() {
-        return Math.sqrt(Math.pow(1/6*(2*getA()*getA()+2*getB()*getB()-getC()*getC()), 2) + Math.pow(getH(), 2));
+        return Math.sqrt(Math.pow(1 / 6 * (2 * getA() * getA() + 2 * getB() * getB() - getC() * getC()), 2) + Math.pow(getH(), 2));
     }
 
     public double getH() {
@@ -37,7 +37,7 @@ public class Tetrahedron extends Triangle implements Volumable {
 
 
     public double Volume() {
-        return super.S() * getH() * 1/3;
+        return super.S() * getH() * 1 / 3;
     }
 
     public double S() {
@@ -49,11 +49,11 @@ public class Tetrahedron extends Triangle implements Volumable {
         double G2 = Math.sqrt(P2 * (P2 - getB()) * (P2 - getR1()) * (P2 - getR2()));
         double G3 = Math.sqrt(P3 * (P3 - getC()) * (P3 - getR1()) * (P3 - getR2()));
 
-        return super.S() + G1+G2+G3;
+        return super.S() + G1 + G2 + G3;
     }
 
     public double P() {
-        return super.P() + getR3()+ getR1() +getR2();
+        return super.P() + getR3() + getR1() + getR2();
     }
 
     public boolean isCorrectTetrahedron() {
