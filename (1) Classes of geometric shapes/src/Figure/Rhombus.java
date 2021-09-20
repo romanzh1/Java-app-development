@@ -1,6 +1,6 @@
 package Figure;
 
-public class Rhombus extends Figure implements Volumable {
+public class Rhombus extends Figure{
     public int x, y, x2, y2;
 
     public double getD1() {
@@ -44,10 +44,5 @@ public class Rhombus extends Figure implements Volumable {
 
     public String toString() {
         return String.format("this is rhombus x:%d y:%d x2:%d y2:%d", x, y, x2, y2);
-    }
-
-    @Override
-    public double Volume() {
-        return 0;
     }
 }

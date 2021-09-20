@@ -1,6 +1,6 @@
 package Figure;
 
-public class Rectangle extends Figure implements Volumable {
+public class Rectangle extends Figure {
     public int x, y, x2, y2;
 
     public double getA() {
@@ -44,10 +44,5 @@ public class Rectangle extends Figure implements Volumable {
 
     public String toString() {
         return String.format("this is rect x:%d y:%d x2:%d y2:%d", x, y, x2, y2);
-    }
-
-    @Override
-    public double Volume() {
-        return 0;
     }
 }

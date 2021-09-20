@@ -2,7 +2,7 @@ package com.company;
 
 import Figure.*;
 
-
+import java.util.*;
 //import java.lang.*; импорт всех классов из пакета
 
 public class Main {
@@ -57,6 +57,29 @@ public class Main {
 
         }
 
+        List list = new ArrayList<Figure>(); // односвязный список
+        List list2 = new LinkedList(); // двусвязный список
+
+        list.add(new Rectangle());
+        list.add(new Circle(10, 15, 10));
+
+        for(Object item : list){
+
+            System.out.println(((Figure)item).toString());
+        }
+
+        System.out.println("==========");
+        list.addAll(Arrays.asList(f));
+        for(Object item : list){
+
+            System.out.println(((Figure)item).toString());
+        }
+        System.out.println("==========");
+
+        Collections.sort(list);
+        for(Object item : list){
+            System.out.println(((Figure)item).toString() + ((Figure)item).S());
+        }
 
 //        System.out.println(d);
 //        System.out.println("Прямоугольник");
