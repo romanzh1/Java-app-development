@@ -2,7 +2,7 @@ package Figure;
 
 import com.company.TriangleException;
 
-public class Triangle extends Figure implements Volumable {
+public class Triangle extends Figure{
     public int x, y, x2, y2, x3, y3;
 
     public double getA() {
@@ -65,10 +65,5 @@ public class Triangle extends Figure implements Volumable {
 
     public String toString() {
         return String.format("this is triangle x:%d y:%d x2:%d y2:%d x3:%d y3:%d", x, y, x2, y2, x3, y3);
-    }
-
-    @Override
-    public double Volume() {
-        return 0;
     }
 }

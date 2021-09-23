@@ -62,56 +62,28 @@ public class Main {
 
         list.add(new Rectangle());
         list.add(new Circle(10, 15, 10));
+        list.add(new Pyramid());
+        list.add(new Rhombus());
+        list.add(new Rectangle());
+        list.add(new Circle());
 
+        list.remove(list.size() - 1);
         for(Object item : list){
-
             System.out.println(((Figure)item).toString());
         }
 
         System.out.println("==========");
         list.addAll(Arrays.asList(f));
-        for(Object item : list){
+        list.removeIf(item -> item instanceof Rectangle);
 
+        for(Object item : list){
             System.out.println(((Figure)item).toString());
         }
-        System.out.println("==========");
+        System.out.println("-------------");
 
         Collections.sort(list);
         for(Object item : list){
             System.out.println(((Figure)item).toString() + ((Figure)item).S());
         }
-
-//        System.out.println(d);
-//        System.out.println("Прямоугольник");
-//        System.out.printf(r.toString());
-//        System.out.println();
-//        System.out.println("Площадь: " + r.S());
-//        System.out.println("Периметр: " + r.P());
-//        System.out.println("Длина диагонали: " + r.Diag());
-//        System.out.println("Прямоугольник квадрат: " + r.isSquare());
-//        System.out.println();
-//
-//        System.out.println("Окружность");
-//        System.out.printf(c.toString());
-//        System.out.println();
-//        System.out.println("Площадь: " + c.S());
-//        System.out.println("Длина: " + c.P());
-//        System.out.println("Диаметр: " + c.D());
-//        System.out.println();
-//
-//        System.out.println("Треугольник");
-//        System.out.printf(t.toString());
-//        System.out.println();
-//        System.out.println("Площадь: " + t.S());
-//        System.out.println("Периметр: " + t.P());
-//        System.out.println("Треугольник существует: " + t.isTriangle());
-//        System.out.println();
-//
-//        System.out.println("Ромб");
-//        System.out.printf(rh.toString());
-//        System.out.println();
-//        System.out.println("Площадь: " + rh.S());
-//        System.out.println("Периметр: " + rh.P());
-//        System.out.println("Треугольник существует: " + rh.isSquare());
     }
 }
