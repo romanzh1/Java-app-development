@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
 //        Article a = new Article("pushkin", "poema", "mymy", 5, 1956);
 //        Queue<Article> q = new ArrayDeque();
 //        q.offer(a);
@@ -123,10 +123,10 @@ class Article {
         return this.autor + " " + this.name + " " + this.count;
     }
 
-    public HashMap <String, Integer> removeLess40(HashMap <String, Integer> countViews){
-        HashMap <String, Integer> countViews2 = new HashMap <String, Integer>(countViews);
-        for (HashMap.Entry item : countViews.entrySet()){
-            if ((int)item.getValue() < 40){
+    public HashMap<String, Integer> removeLess40(HashMap<String, Integer> countViews) {
+        HashMap<String, Integer> countViews2 = new HashMap<String, Integer>(countViews);
+        for (HashMap.Entry item : countViews.entrySet()) {
+            if ((int) item.getValue() < 40) {
                 countViews2.remove(item.getKey());
             }
         }

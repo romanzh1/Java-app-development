@@ -99,7 +99,14 @@
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <model>
+                <item value="bb"/>
+                <item value="tt"/>
+                <item value="ushkin"/>
+                <item value="pushkin"/>
+              </model>
+            </properties>
           </component>
           <component id="37399" class="javax.swing.JLabel">
             <constraints>
@@ -132,6 +139,7 @@
               </grid>
             </constraints>
             <properties>
+              <columns value="2"/>
               <text value=""/>
             </properties>
           </component>
@@ -154,16 +162,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="3135b" class="javax.swing.JTable" binding="table1" default-binding="true">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <gridColor color="-11579054"/>
-            </properties>
-          </component>
           <component id="b5efb" class="javax.swing.JButton" binding="button1" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -171,6 +169,21 @@
             <properties>
               <text value="Create Articles"/>
             </properties>
+          </component>
+          <component id="d48e9" class="javax.swing.JTable" binding="table1" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+                <maximum-size width="500" height="500"/>
+              </grid>
+            </constraints>
+            <properties>
+              <editingRow value="1"/>
+              <enabled value="true"/>
+            </properties>
+            <clientProperties>
+              <JTable.autoStartsEdit class="java.lang.Boolean" value="true"/>
+            </clientProperties>
           </component>
         </children>
       </grid>
@@ -199,18 +212,6 @@
               <text value="Sort"/>
             </properties>
           </component>
-          <component id="64ff6" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <model>
-                <item value="Autor"/>
-                <item value="Rubrica"/>
-                <item value="Title"/>
-              </model>
-            </properties>
-          </component>
           <component id="84b63" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
@@ -237,6 +238,18 @@
             </constraints>
             <properties>
               <text value="Go sort"/>
+            </properties>
+          </component>
+          <component id="64ff6" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="Autor"/>
+                <item value="Rubrica"/>
+                <item value="Title"/>
+              </model>
             </properties>
           </component>
         </children>
