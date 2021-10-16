@@ -1,5 +1,5 @@
-*.idea
-*.debug
-*.bin
-*.env
-*.vscode
+.idea
+Debug
+bin
+.env
+.vscode
