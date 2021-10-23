@@ -1,52 +1,46 @@
 package com.company;
 
-import org.apache.commons.io.FileUtils;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
-
 
 public class MyForm extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
     private JButton button1;
     private JButton button2;
     private JTextArea textArea1;
     private JButton удалитьФайлButton;
     private JTextField textField1;
     private JButton createFolder;
-    private JButton renamefile;
-    private JButton copyFile;
+    private JButton addfile;
+    private JButton renameFile;
+    private JTabbedPane tabbedPane1;
+    private JTextField autor;
+    private JTextField nameArt;
+    private JTextField countArt;
+    private JComboBox comboBox1;
+    private JTextField nameFile;
+    private JButton выбратьПапкуButton;
     File mydir = null;
 
     public MyForm() {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-
 
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                int res = fileChooser.showDialog(null, "Choose dir");
-                if (res == JFileChooser.APPROVE_OPTION) {
-                    mydir = fileChooser.getSelectedFile();
-                }
+
             }
         });
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (mydir != null) {
+                if (mydir != null){
                     String s = "";
                     int i = 0;
-                    for (File file : mydir.listFiles()) {
+                    for (File file : mydir.listFiles()){
                         if (file.isFile()) s += file.getName() + "\n";
                     }
                     textArea1.setText(s);
@@ -56,26 +50,27 @@ public class MyForm extends JDialog {
         удалитьФайлButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textArea1.getText().isEmpty()) {
+                if (textArea1.getText().isEmpty()){
                     JFileChooser fileChooser = new JFileChooser(mydir);
                     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                    FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text", "docx");
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt" , "text", "docx");
                     fileChooser.setFileFilter(filter);
 
                     int res = fileChooser.showDialog(null, "Выберите файл");
-                    if (res == JFileChooser.APPROVE_OPTION) {
+                    if (res == JFileChooser.APPROVE_OPTION){
                         File f = fileChooser.getSelectedFile();
                         f.delete();
                     }
-                } else {
+                }
+                else{
                     int offset = textArea1.getCaretPosition();
                     System.out.println(offset);
-                    String[] files = textArea1.getText().split("\n");
+                    String []files = textArea1.getText().split("\n");
                     String nameFile = "";
                     int countSymbol = 0;
-                    for (int i = 0; i < files.length; i++) {
-                        if (offset >= countSymbol && offset <= countSymbol + files[i].length()) {
+                    for (int i = 0; i < files.length; i++){
+                        if (offset >= countSymbol && offset <= countSymbol + files[i].length()){
                             nameFile = files[i];
                         }
                         countSymbol += files[i].length();
@@ -99,7 +94,7 @@ public class MyForm extends JDialog {
                 int res = fileChooser.showDialog(null, "Выберите папку");
                 System.out.println(0);
 
-                if (res == JFileChooser.APPROVE_OPTION) {
+                if (res == JFileChooser.APPROVE_OPTION){
                     System.out.println(1);
                     String folder = fileChooser.getSelectedFile().getAbsolutePath();
                     String pathDir = folder + "\\" + textField1.getText();
@@ -113,70 +108,55 @@ public class MyForm extends JDialog {
                 }
             }
         });
-        renamefile.addActionListener(new ActionListener() {
+        addfile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int offset = textArea1.getCaretPosition();
                 System.out.println(offset);
-                String[] files = textArea1.getText().split("\n");
+                String []files = textArea1.getText().split("\n");
                 String nameFile = "";
                 int countSymbol = 0;
-                for (int i = 0; i < files.length; i++) {
-                    if (offset >= countSymbol && offset <= countSymbol + files[i].length()) {
+                for (int i = 0; i < files.length; i++){
+                    if (offset >= countSymbol && offset <= countSymbol + files[i].length()){
                         nameFile = files[i];
                     }
                     countSymbol += files[i].length();
                 }
 
-                String pathForRename = mydir.getAbsolutePath() + "\\";
+                String pathForRename = mydir.getAbsolutePath() + "\\" + nameFile;
+                System.out.println(pathForRename);
+                System.out.println(textField1.getText());
 
-                File newfile = new File(pathForRename + textField1.getText());
-                File file = new File(pathForRename + nameFile);
+                File newfile = new File(textField1.getText());
+                File file = new File(pathForRename);
                 if (file.renameTo(newfile)) JOptionPane.showMessageDialog(contentPane, "Название файла изменено");
                 else JOptionPane.showMessageDialog(contentPane, "Название файла не изменено");
+                // TODO файл почему-то удаляется
             }
         });
-        copyFile.addActionListener(new ActionListener() {
+        renameFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File fileTyCopy = null;
-
-                if (mydir == null) {
-                    JFileChooser whereToCopyFrom = new JFileChooser();
-                    whereToCopyFrom.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    int res = whereToCopyFrom.showDialog(null, "Выберите файл");
-                    if (res == JFileChooser.APPROVE_OPTION) {
-                        mydir = whereToCopyFrom.getSelectedFile();
-                    }
-                } else {
-                    int offset = textArea1.getCaretPosition();
-                    System.out.println(offset);
-                    String[] files = textArea1.getText().split("\n");
-                    String nameFile = "";
-                    int countSymbol = 0;
-                    for (int i = 0; i < files.length; i++) {
-                        if (offset >= countSymbol && offset <= countSymbol + files[i].length()) {
-                            nameFile = files[i];
-                        }
-                        countSymbol += files[i].length();
-                    }
-
-                    fileTyCopy = new File(mydir.getAbsolutePath() + "\\" + nameFile);
-                }
-
-                File newDirectory = null;
-                JFileChooser whereToCopy = new JFileChooser();
-                whereToCopy.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                int res = whereToCopy.showDialog(null, "Выберите папку");
+                JFileChooser fileChooser = new JFileChooser(mydir);
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                File sourceFile = fileChooser.getSelectedFile();
+                // TODO куда копировать выбранный в окне файл
+            }
+        });
+//        выбратьПапкуButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//            }
+//        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int res = fileChooser.showDialog(null, "Choose dir");
                 if (res == JFileChooser.APPROVE_OPTION) {
-                    newDirectory = whereToCopy.getSelectedFile();
-                }
-
-                try {
-                    if (fileTyCopy == null) FileUtils.copyFileToDirectory(mydir, newDirectory);
-                    else FileUtils.copyFileToDirectory(fileTyCopy, newDirectory);
-                } catch (IOException exception) {
-                    exception.printStackTrace();
+                    mydir= fileChooser.getSelectedFile();
                 }
             }
         });
@@ -187,5 +167,9 @@ public class MyForm extends JDialog {
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
