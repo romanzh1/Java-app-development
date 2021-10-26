@@ -9,7 +9,7 @@
       <enabled value="true"/>
       <font size="23"/>
       <minimumSize width="900" height="400"/>
-      <preferredSize width="900" height="400"/>
+      <preferredSize width="1500" height="800"/>
     </properties>
     <border type="none"/>
     <children>
@@ -174,15 +174,6 @@
                       <text value="Вывести данные"/>
                     </properties>
                   </component>
-                  <component id="94c5f" class="javax.swing.JButton" binding="searchF">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <font size="23"/>
-                      <text value="Сгруппировать по ключу"/>
-                    </properties>
-                  </component>
                   <component id="60a1a" class="javax.swing.JButton" binding="sortF">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -200,6 +191,15 @@
                     </constraints>
                     <properties>
                       <font size="22"/>
+                    </properties>
+                  </component>
+                  <component id="94c5f" class="javax.swing.JButton" binding="searchF">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font size="23"/>
+                      <text value="Сгруппировать по ключу"/>
                     </properties>
                   </component>
                 </children>

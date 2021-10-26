@@ -1,9 +1,1 @@
-[
-    {
-        "title": "mymy",
-        "author": "pushkin",
-        "rubric": "comedy",
-        "year": 1425,
-        "keyWord": ["Герасим", "Программист", "Java", "На муму"]
-    }
-]
+[{"title":"mymy","author":"pushkin","year":1425,"category":"comedy","keyWord":["Герасим","Java","Программист","муму"]},{"title":"cow","author":"push","year":1234,"category":"qq","keyWord":["my","mymy","mymymy"]},{"title":"qwerty","author":"sci","year":2020,"category":"mm","keyWord":["му","муму"]}]
