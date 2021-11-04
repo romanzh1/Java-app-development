@@ -4,14 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Main {
-    private static void deleteProduct(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, String name) throws SQLException {
+    private static void deleteProductName(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, String name) throws SQLException {
         PreparedStatement ps = con.prepareStatement(
                 "BEGIN; " +
                         "DELETE FROM product_category " +
                         "WHERE id_product = (" +
                             "SELECT id " +
                             "FROM product " +
-                            "WHERE NAME = ?); " +
+                            "WHERE name = ?); " +
                         "DELETE FROM product " +
                         "WHERE name = ?; " +
                     "COMMIT;");
@@ -26,13 +26,30 @@ public class Main {
         }
     }
 
+    private static void deleteProductCatName(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, String name) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(
+                "WITH prcat AS (" +
+                        "DELETE FROM product_category " +
+                        "WHERE category = ? " +
+                        "RETURNING id_product)" +
+                    "DELETE FROM product " +
+                    "WHERE id IN (SELECT id_product FROM prcat);");
+        ps.setString(1, name);
+        ps.execute();
+        for (int i = 0; i < pr.size(); i++) {
+            if (pc.get(i).category.equals(name)) {
+                pr.remove(i);
+                pc.remove(i);
+            }
+        }
+    }
+
     private static void addProduct(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, Product itemP, ProductCategory itemPC) throws SQLException {
         PreparedStatement ps = con.prepareStatement("INSERT INTO product (name, price) VALUES (?, ?) RETURNING id");
         ps.setString(1, itemP.name);
         ps.setDouble(2, itemP.price);
         ps.execute();
         pr.add(itemP);
-        System.out.println();
 
         ResultSet res = ps.getResultSet();
         res.next();
@@ -52,17 +69,7 @@ public class Main {
                     "SELECT id, price, name, category " +
                             "FROM product, product_category " +
                             "WHERE id = id_product");
-            pr.clear();
-            pc.clear();
-            while (res.next()) { // вывод результатов
-                pr.add(new Product(res.getInt("id"), res.getString("name"), res.getFloat("price")));
-                pc.add(new ProductCategory(res.getInt("id"), res.getString("category")));
-            }
-
-            for (int i = 0; i < pr.size(); i++) {
-                System.out.println(pr.get(i).toString() + "  " + pc.get(i).toString());
-            }
-            System.out.println();
+            show(con, pr, pc, res);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +92,39 @@ public class Main {
         }
     }
 
+    private static void showProductByCat(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, String name) {
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, price, name, category " +
+                            "FROM product, product_category " +
+                            "WHERE id = id_product AND category = ?");
+            ps.setString(1, name);
+            ps.execute();
+            ResultSet res = ps.getResultSet();
+
+            show(con, pr, pc, res);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void show(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, ResultSet res) {
+        try {
+            pr.clear();
+            pc.clear();
+            while (res.next()) { // вывод результатов
+                pr.add(new Product(res.getInt("id"), res.getString("name"), res.getFloat("price")));
+                pc.add(new ProductCategory(res.getInt("id"), res.getString("category")));
+            }
+
+            for (int i = 0; i < pr.size(); i++) {
+                System.out.println(pr.get(i).toString() + "  " + pc.get(i).toString());
+            }
+            System.out.println();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) throws SQLException {
         System.out.println(55);
         ArrayList<Product> pr = new ArrayList<>();
@@ -95,15 +135,20 @@ public class Main {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/JavaDB", "postgres",
                     "vjycnh");
             showProduct(con, pr, prCat);
-
+            showProductByCat(con, pr, prCat, "food");
+            
             // add product
-            Product itemP = new Product(0, "riceee", 8);
-            ProductCategory itemPC = new ProductCategory(0, "italian");
-            addProduct(con, pr, prCat, itemP, itemPC);
-            showProduct(con, pr, prCat);
+//            Product itemP = new Product(0, "mymymy", 4);
+//            ProductCategory itemPC = new ProductCategory(0, "it");
+//            addProduct(con, pr, prCat, itemP, itemPC);
+//            showProduct(con, pr, prCat);
 
-            deleteProduct(con, pr, prCat,"riceee");
-            showProduct(con, pr, prCat);
+            // delete product
+//            deleteProductName(con, pr, prCat,"mymymy");
+            //deleteProductCatName(con, pr, prCat, "it");
+//            showProduct(con, pr, prCat);
+
+            //
         } catch (SQLException e) {
             e.printStackTrace();
         }
