@@ -92,6 +92,80 @@ public class Main {
         }
     }
 
+    private static void showMaxPriceProductByCat(Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT MAX(price), category " +
+                            "FROM product, product_category " +
+                            "WHERE id = id_product " +
+                            "GROUP BY category");
+            ps.execute();
+            ResultSet res = ps.getResultSet();
+
+            while (res.next()) { // вывод результатов
+                System.out.println(res.getString("category") + " max = " + res.getDouble("max"));
+            }
+            System.out.println();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void showCountProductByCat(Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT COUNT(*), category " +
+                            "FROM product, product_category " +
+                            "WHERE id = id_product " +
+                            "GROUP BY category");
+            ps.execute();
+            ResultSet res = ps.getResultSet();
+
+            while (res.next()) { // вывод результатов
+                System.out.println(res.getString("category") + " count = " + res.getInt(    "count"));
+            }
+            System.out.println();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void showCostProductByCat(Connection con, String name) {
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT SUM(price), category " +
+                        "FROM product, product_category " +
+                        "WHERE id = id_product AND category = ? " +
+                        "GROUP BY category");
+            ps.setString(1, name);
+            ps.execute();
+            ResultSet res = ps.getResultSet();
+
+            while (res.next()) { // вывод результатов
+                System.out.println(res.getString("category") + " sum = " + res.getDouble("sum"));
+            }
+            System.out.println();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void showFilteredPriceProduct(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, Double price, String sign) {
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, price, name, category " +
+                            "FROM product, product_category " +
+                            "WHERE id = id_product AND price "+ sign + "?");
+            ps.setDouble(1, price);
+            ps.execute();
+            ResultSet res = ps.getResultSet();
+
+            show(con, pr, pc, res);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void showProductByCat(Connection con, ArrayList<Product> pr, ArrayList<ProductCategory> pc, String name) {
         try {
             PreparedStatement ps = con.prepareStatement(
@@ -136,17 +210,23 @@ public class Main {
                     "vjycnh");
             showProduct(con, pr, prCat);
             showProductByCat(con, pr, prCat, "food");
-            
+            showFilteredPriceProduct(con, pr, prCat, 3.3, ">=");
+            showCostProductByCat(con, "italian");
+            showCountProductByCat(con);
+            showMaxPriceProductByCat(con);
+
             // add product
 //            Product itemP = new Product(0, "mymymy", 4);
 //            ProductCategory itemPC = new ProductCategory(0, "it");
 //            addProduct(con, pr, prCat, itemP, itemPC);
 //            showProduct(con, pr, prCat);
 
-            // delete product
-//            deleteProductName(con, pr, prCat,"mymymy");
-            //deleteProductCatName(con, pr, prCat, "it");
+            // delete product and category
+            //deleteProductName(con, pr, prCat,"mymymy");
+//            deleteProductCatName(con, pr, prCat, "it");
 //            showProduct(con, pr, prCat);
+
+            // filter data
 
             //
         } catch (SQLException e) {
