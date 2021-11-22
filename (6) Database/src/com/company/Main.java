@@ -222,7 +222,7 @@ public class Main {
 //            showProduct(con, pr, prCat);
 
             // delete product and category
-            //deleteProductName(con, pr, prCat,"mymymy");
+            deleteProductName(con, pr, prCat,"mymymy");
 //            deleteProductCatName(con, pr, prCat, "it");
 //            showProduct(con, pr, prCat);
 
