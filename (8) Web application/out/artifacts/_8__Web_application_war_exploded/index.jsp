@@ -8,11 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>First project web</title>
+    <title>Страница студента</title>
+    <link rel="STYLESHEET" type="text/css" href="style.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="web application" />
   </head>
   <body>
-  <h1>Hello world</h1>
-  <a href="second.jspx">second</a>
-  <a href="third.jspx">third</a>
+  <h1>Страница студента</h1>
+  <p><a href="second.jsp">Университет</a></p>
+  <p><a href="third.jspx">Кафедра</a></p>
+  <p>Группа 4281</p>
+  <p>Жихарев Роман Александрович</p>
+
   </body>
 </html>
